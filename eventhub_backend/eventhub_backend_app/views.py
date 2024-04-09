@@ -1,69 +1,37 @@
-from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Users, Events, Categories, Tickets, User_Events, Locations, Event_Categories
 
+# Endpoint to retrieve a list of all events
 def event_list(request):
-    Events = Events.objects.all()
-    Categories = Categories.objects.all()
-    Locations = Locations.objects.all()
-    Event_Categories = Event_Categories.objects.all()
-    
-    categorized_events = {}
-    
-    for Category in Categories:
-        category_events = Events.objects.filter(category=Category)
-        category_data = {
-            Event_Name: category_events.Event_Name,
-            Event_Description: category_events.Event_Description,
-            Event_Location: category_events.Event_Location,
-            Event_StartDate_Time: category_events.Event_StartDate_Time,
-            Category_Name: category_events.Category_Name,
-        }
-        categorized_events.append(category_data)
-    
-    for Location in Locations:
-        Location_events = Events.objects.filter(location=Location)
-        location_data = {
-            Location_Name: Location_events.Location_Name,
-            Location_Pin: Location_events.Location_Pin,
-            Location_Address: Location_events.Location_Address,
-            Event_ID: Location_events.Event_ID,
-        }
-        Location_events.append(location_data)
+    events = Events.objects.all()
+    data = [{'Event_Name': event.Event_Name,
+             'Event_Description': event.Event_Description,
+             'Event_Location': event.Event_Location,
+             'Event_StartDate_Time': event.Event_StartDate_Time,
+             'Event_EndDate_Time': event.Event_EndDate_Time,
+             'Event_Capacity': event.Event_Capacity,
+             'Event_Price': event.Event_Price,
+             'Event_Organizer': event.Event_Organizer,
+             'Organizer_ID': event.Organizer_ID,
+             'Event_Host': event.Event_Host,
+             'Event_Status': event.Event_Status} for event in events]
+    return JsonResponse(data, safe=False)
 
-def Categories(request):
-    Categories = Categories.objects.all()
-    Events = Events.objects.all()
-    Event_Categories = Event_Categories.objects.all()
-    
-    Events_by_Category = {}
-    
-    for category in Categories:
-        category_events = Events.objects.filter(category=category)
-        category_data = {
-            Event_Name: category_events.Event_Name,
-            Event_Description: category_events.Event_Description,
-            Event_Location: category_events.Event_Location,
-            Event_StartDate_Time: category_events.Event_StartDate_Time,
-            Category_Name: category_events.Category_Name,
-        }
-        Events_by_Category.append(category_data)
-    
-    for event in Events:
-        event_categories = Categories.objects.filter(event=event)
-        event_data = {
-            Event_Name: event_categories.Event_Name,
-            Event_Description: event_categories.Event_Description,
-            Event_Location: event_categories.Event_Location,
-            Event_StartDate_Time: event_categories.Event_StartDate_Time,
-            Category_Name: event_categories.Category_Name,
-        }
-        Events_by_Category.append(event_data)
-    
-    for event_category in Event_Categories:
-        event_category_data = {
-            Event_Name: event_category.Event_Name,
-            Category_Name: event_category.Category_Name,
-        }
-        Events_by_Category.append(event_category_data)
-        
-        return render(request, Users, Events)
+# Endpoint to retrieve a list of all categories
+def category_list(request):
+    categories = Categories.objects.all()
+    data = [{'Category_Name': category.Category_Name,
+             'Category_Description': category.Category_Description} for category in categories]
+    return JsonResponse(data, safe=False)
+
+# Endpoint to retrieve a list of all users
+def user_list(request):
+    users = Users.objects.all()
+    data = [{'User_Name': user.User_Name,
+             'User_Email': user.User_Email,
+             'User_PhoneNumber': user.User_PhoneNumber,
+             'User_FirstName': user.User_FirstName,
+             'User_LastName': user.User_LastName,
+             'User_ProfilePicture': user.User_ProfilePicture,
+             'User_PaymentInfo': user.User_PaymentInfo} for user in users]
+    return JsonResponse(data, safe=False)
