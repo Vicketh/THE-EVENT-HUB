@@ -1,0 +1,39 @@
+/* Styles for form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button styles */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Error message styles */
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+/* Success message styles */
+.success-message {
+    color: green;
+    margin-bottom: 10px;
+}
