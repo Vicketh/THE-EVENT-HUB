@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -21,6 +27,10 @@
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .logo {
@@ -120,4 +130,18 @@
   margin-bottom: 5px;
   font-size: 14px;
   color: #333;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
