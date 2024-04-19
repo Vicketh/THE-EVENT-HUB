@@ -1,1 +1,2 @@
-node_modules
+eventhub_frontend/node_modules
+eventhub_backend/event_hub_env
